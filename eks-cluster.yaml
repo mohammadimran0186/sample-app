@@ -1,0 +1,23 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+metadata:
+  name: my-eks-cluster
+  region: ap-south-1
+  version: "1.28"
+vpc:
+  clusterEndpoints:
+    publicAccess: true
+managedNodeGroups:
+  - name: managed-ng-1
+    instanceType: t3.medium
+    desiredCapacity: 2
+    minSize: 1
+    maxSize: 3
+    ssh:
+      allow: true
+        #publicKeyName: "<YOUR-EC2-KEYPAIR-NAME>"   # replace or remove this block if you don't want SSH access to nodes
+    iam:
+      withAddonPolicies:
+        ebs: true
+        autoScaler: true
+
